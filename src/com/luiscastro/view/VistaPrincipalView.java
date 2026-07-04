@@ -54,7 +54,12 @@ public class VistaPrincipalView {
         Label lblDpi = new Label("DPI:");
         txtDpi = new TextField();
 
-        contenedor.getChildren().addAll(lblNombre, txtNombre, lblDpi, txtDpi);
+        Label lblTipo = new Label("Tipo de empleado");
+        cmbTipo = new ComboBox<>();
+        cmbTipo.getItems().addAll("Asalariado", "PorHoras", "Comisionista");
+        cmbTipo.setValue("Asalariado");
+
+        contenedor.getChildren().addAll(lblNombre, txtNombre, lblDpi, txtDpi, lblTipo, cmbTipo);
         Tab tabRegistro = new Tab("Registro");
         tabRegistro.setContent(contenedor);
         tabRegistro.setClosable(false);

@@ -39,9 +39,53 @@ public class VistaPrincipalView {
     //Botones
     private Button btnAgregar;
 
+    //Metodos
     public VistaPrincipalView() {
         tabPane = new TabPane();
+        construirPanelAsalariado();
+        construirPanelPorHoras();
+        construirPanelComisionista();
         construirTabRegistro();
+    }
+
+    private void construirPanelAsalariado() {
+        Label lblSueldoFijo = new Label("Sueldo fijo mensual: ");
+        txtSueldoFijo = new TextField();
+
+        panelAsalariado = new VBox(10);
+        panelAsalariado.getChildren().addAll(lblSueldoFijo,
+                txtSueldoFijo
+        );
+    }
+
+    private void construirPanelPorHoras() {
+        Label lblCostoHora = new Label("Costo por hora: ");
+        txtCostoHora = new TextField();
+
+        Label lblHorasTrabajadas = new Label("Horas trabajadas: ");
+        txtHorasTrabajadas = new TextField();
+
+        panelPorHoras = new VBox(10);
+        panelPorHoras.getChildren().addAll(lblCostoHora,
+                txtCostoHora,
+                lblHorasTrabajadas,
+                txtHorasTrabajadas
+        );
+    }
+
+    private void construirPanelComisionista() {
+        Label lblVentasTotales = new Label("Ventas totales: ");
+        txtVentasTotales = new TextField();
+
+        Label lblPorcentajeComision = new Label("Porcentaje por comisión");
+        txtPorcentajeComision = new TextField();
+
+        panelComisionista = new VBox(10);
+        panelComisionista.getChildren().addAll(lblVentasTotales,
+                txtVentasTotales,
+                lblPorcentajeComision,
+                txtPorcentajeComision
+        );
     }
 
     private void construirTabRegistro() {
@@ -59,7 +103,17 @@ public class VistaPrincipalView {
         cmbTipo.getItems().addAll("Asalariado", "PorHoras", "Comisionista");
         cmbTipo.setValue("Asalariado");
 
-        contenedor.getChildren().addAll(lblNombre, txtNombre, lblDpi, txtDpi, lblTipo, cmbTipo);
+        contenedor.getChildren().addAll(lblNombre,
+                txtNombre,
+                lblDpi,
+                txtDpi,
+                lblTipo,
+                cmbTipo,
+                panelAsalariado,
+                panelPorHoras,
+                panelComisionista
+        );
+
         Tab tabRegistro = new Tab("Registro");
         tabRegistro.setContent(contenedor);
         tabRegistro.setClosable(false);
@@ -67,6 +121,7 @@ public class VistaPrincipalView {
         tabPane.getTabs().add(tabRegistro);
     }
 
+    //Constructores
     //Getters y Setters
     public TabPane getTabPane() {
         return tabPane;

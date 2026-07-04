@@ -103,6 +103,8 @@ public class VistaPrincipalView {
         cmbTipo.getItems().addAll("Asalariado", "PorHoras", "Comisionista");
         cmbTipo.setValue("Asalariado");
 
+        btnAgregar = new Button("Agregar empleado");
+
         contenedor.getChildren().addAll(lblNombre,
                 txtNombre,
                 lblDpi,
@@ -111,7 +113,8 @@ public class VistaPrincipalView {
                 cmbTipo,
                 panelAsalariado,
                 panelPorHoras,
-                panelComisionista
+                panelComisionista,
+                btnAgregar
         );
 
         Tab tabRegistro = new Tab("Registro");
@@ -142,4 +145,35 @@ public class VistaPrincipalView {
         return panelComisionista;
     }
 
+    public Button getBtnAgregar() {
+        return btnAgregar;
+    }
+
+    public TextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public TextField getTxtDpi() {
+        return txtDpi;
+    }
+
+    public TextField getTxtSueldoFijo() {
+        return txtSueldoFijo;
+    }
+
+    public TextField getTxtCostoHora() {
+        return txtCostoHora;
+    }
+
+    public TextField getTxtHorasTrabajadas() {
+        return txtHorasTrabajadas;
+    }
+
+    public TextField getTxtVentasTotales() {
+        return txtVentasTotales;
+    }
+
+    public TextField getTxtPorcentajeComision() {
+        return txtPorcentajeComision;
+    }
 }

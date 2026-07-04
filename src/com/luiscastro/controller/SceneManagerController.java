@@ -20,8 +20,35 @@ public class SceneManagerController {
 
     public void iniciar() {
         Scene scene = new Scene(vista.getTabPane(), 600, 400);
-        stage.setTitle("Sistema de Nómina - Recursos Humanos");
+        stage.setTitle("Sistema de Recursos Humanos");
         stage.setScene(scene);
         stage.show();
+
+        vista.getCmbTipo().setOnAction(e -> panelVisible());
+        panelVisible();
+    }
+
+    private void panelVisible() {
+        vista.getPanelAsalariado().setVisible(false);
+        vista.getPanelAsalariado().setManaged(false);
+        vista.getPanelPorHoras().setVisible(false);
+        vista.getPanelPorHoras().setManaged(false);
+        vista.getPanelComisionista().setVisible(false);
+        vista.getPanelComisionista().setManaged(false);
+
+        switch (vista.getCmbTipo().getValue()) {
+            case "Asalariado" -> {
+                vista.getPanelAsalariado().setVisible(true);
+                vista.getPanelAsalariado().setManaged(true);
+            }
+            case "PorHoras" -> {
+                vista.getPanelPorHoras().setVisible(true);
+                vista.getPanelPorHoras().setManaged(true);
+            }
+            case "Comisionista" -> {
+                vista.getPanelComisionista().setVisible(true);
+                vista.getPanelComisionista().setManaged(true);
+            }
+        }
     }
 }

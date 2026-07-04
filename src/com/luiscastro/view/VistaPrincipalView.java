@@ -121,10 +121,25 @@ public class VistaPrincipalView {
         tabPane.getTabs().add(tabRegistro);
     }
 
-    //Constructores
-    //Getters y Setters
+    //Getters
     public TabPane getTabPane() {
         return tabPane;
+    }
+
+    public ComboBox<String> getCmbTipo() {
+        return cmbTipo;
+    }
+
+    public VBox getPanelAsalariado() {
+        return panelAsalariado;
+    }
+
+    public VBox getPanelPorHoras() {
+        return panelPorHoras;
+    }
+
+    public VBox getPanelComisionista() {
+        return panelComisionista;
     }
 
 }

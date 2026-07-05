@@ -49,13 +49,22 @@ public class SceneManagerController {
             total += emp.calcularSueldo();
         }
 
-        vista.getLblTotal().setText("Total: Q" + total);
+        vista.getLblTotal().setText("Total: Q" + String.format("%.2f", total));
     }
 
     private void agregarEmpleado() {
         try {
             String nombre = vista.getTxtNombre().getText();
             int dpi = Integer.parseInt(vista.getTxtDpi().getText());
+            
+            if (nombre.isBlank()) {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error de los datos");
+                alerta.setHeaderText("Datos inválidos");
+                alerta.setContentText("El nombre no puede estar vacío.");
+                alerta.showAndWait();
+                return;
+            }
 
             switch (vista.getCmbTipo().getValue()) {
                 case "Asalariado" -> {

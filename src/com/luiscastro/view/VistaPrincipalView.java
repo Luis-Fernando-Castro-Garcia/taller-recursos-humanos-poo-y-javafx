@@ -4,24 +4,29 @@
  */
 package com.luiscastro.view;
 
+import com.luiscastro.modelo.Empleado;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class VistaPrincipalView {
 
-    //Campos normales
     private TabPane tabPane;
     private TextField txtNombre;
     private TextField txtDpi;
     private ComboBox<String> cmbTipo;
+    private Label lblTotal;
 
-    //Campos dinámicos por cada modelo
     //Asalariado
     private VBox panelAsalariado;
     private TextField txtSueldoFijo;
@@ -38,6 +43,13 @@ public class VistaPrincipalView {
 
     //Botones
     private Button btnAgregar;
+    private Button btnCalcularTotal;
+
+    //Tablas
+    private TableView<Empleado> tablaEmpleado;
+    private TableColumn<Empleado, String> colNombre;
+    private TableColumn<Empleado, Integer> colDpi;
+    private TableColumn<Empleado, Double> colSueldo;
 
     //Metodos
     public VistaPrincipalView() {
@@ -46,6 +58,7 @@ public class VistaPrincipalView {
         construirPanelPorHoras();
         construirPanelComisionista();
         construirTabRegistro();
+        construirTabResumen();
     }
 
     private void construirPanelAsalariado() {
@@ -124,6 +137,38 @@ public class VistaPrincipalView {
         tabPane.getTabs().add(tabRegistro);
     }
 
+    private void construirTabResumen() {
+        colNombre = new TableColumn<>("Nombre");
+        colNombre.setCellValueFactory(datos
+                -> new SimpleStringProperty(datos.getValue().getNombre())
+        );
+
+        colDpi = new TableColumn<>("Dpi");
+        colDpi.setCellValueFactory(datos
+                -> new SimpleIntegerProperty(datos.getValue().getDpi()).asObject()
+        );
+
+        colSueldo = new TableColumn<>("Sueldo");
+        colSueldo.setCellValueFactory(datos
+                -> new SimpleDoubleProperty(datos.getValue().calcularSueldo()).asObject()
+        );
+
+        tablaEmpleado = new TableView<>();
+        tablaEmpleado.getColumns().addAll(colNombre, colDpi, colSueldo);
+
+        btnCalcularTotal = new Button("Calcular Total");
+        lblTotal = new Label("Total: Q0.00");
+
+        VBox contenedor = new VBox(10, tablaEmpleado, btnCalcularTotal, lblTotal);
+        contenedor.setPadding(new Insets(15));
+
+        Tab tabResumen = new Tab("Resumen");
+        tabResumen.setContent(contenedor);
+        tabResumen.setClosable(false);
+
+        tabPane.getTabs().add(tabResumen);
+    }
+
     //Getters
     public TabPane getTabPane() {
         return tabPane;
@@ -175,5 +220,17 @@ public class VistaPrincipalView {
 
     public TextField getTxtPorcentajeComision() {
         return txtPorcentajeComision;
+    }
+
+    public Label getLblTotal() {
+        return lblTotal;
+    }
+
+    public Button getBtnCalcularTotal() {
+        return btnCalcularTotal;
+    }
+
+    public TableView<Empleado> getTablaEmpleado() {
+        return tablaEmpleado;
     }
 }

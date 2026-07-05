@@ -12,17 +12,19 @@ import com.luiscastro.modelo.Comisionista;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class SceneManagerController {
 
     private Stage stage;
     private VistaPrincipalView vista;
-    private ArrayList<Empleado> listaEmpleados;
+    private ObservableList<Empleado> listaEmpleados;
 
     public SceneManagerController(Stage stage) {
         this.stage = stage;
         this.vista = new VistaPrincipalView();
-        this.listaEmpleados = new ArrayList<>();
+        this.listaEmpleados = FXCollections.observableArrayList();
     }
 
     public void iniciar() {
@@ -31,10 +33,23 @@ public class SceneManagerController {
         stage.setScene(scene);
         stage.show();
 
+        vista.getTablaEmpleado().setItems(listaEmpleados);
+
         vista.getCmbTipo().setOnAction(e -> panelVisible());
         panelVisible();
 
         vista.getBtnAgregar().setOnAction(e -> agregarEmpleado());
+
+        vista.getBtnCalcularTotal().setOnAction(e -> calcularTotal());
+    }
+
+    private void calcularTotal() {
+        double total = 0;
+        for (Empleado emp : listaEmpleados) {
+            total += emp.calcularSueldo();
+        }
+
+        vista.getLblTotal().setText("Total: Q" + total);
     }
 
     private void agregarEmpleado() {

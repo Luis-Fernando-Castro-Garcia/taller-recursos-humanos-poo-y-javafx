@@ -11,9 +11,9 @@ import com.luiscastro.modelo.PorHoras;
 import com.luiscastro.modelo.Comisionista;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 public class SceneManagerController {
 
@@ -53,36 +53,44 @@ public class SceneManagerController {
     }
 
     private void agregarEmpleado() {
-        String nombre = vista.getTxtNombre().getText();
-        int dpi = Integer.parseInt(vista.getTxtDpi().getText());
+        try {
+            String nombre = vista.getTxtNombre().getText();
+            int dpi = Integer.parseInt(vista.getTxtDpi().getText());
 
-        switch (vista.getCmbTipo().getValue()) {
-            case "Asalariado" -> {
-                double sueldo = Double.parseDouble(vista.getTxtSueldoFijo().getText());
-                Asalariado nuevo = new Asalariado(sueldo, nombre, dpi);
-                listaEmpleados.add(nuevo);
+            switch (vista.getCmbTipo().getValue()) {
+                case "Asalariado" -> {
+                    double sueldo = Double.parseDouble(vista.getTxtSueldoFijo().getText());
+                    Asalariado nuevo = new Asalariado(sueldo, nombre, dpi);
+                    listaEmpleados.add(nuevo);
+                }
+                case "PorHoras" -> {
+                    double costoHora = Double.parseDouble(vista.getTxtCostoHora().getText());
+                    double horasTrabajadas = Double.parseDouble(vista.getTxtHorasTrabajadas().getText());
+                    PorHoras nuevo = new PorHoras(costoHora, horasTrabajadas, nombre, dpi);
+                    listaEmpleados.add(nuevo);
+                }
+                case "Comisionista" -> {
+                    double ventasTotales = Double.parseDouble(vista.getTxtVentasTotales().getText());
+                    double porcentajeComision = Double.parseDouble(vista.getTxtPorcentajeComision().getText());
+                    Comisionista nuevo = new Comisionista(ventasTotales, porcentajeComision, nombre, dpi);
+                    listaEmpleados.add(nuevo);
+                }
             }
-            case "PorHoras" -> {
-                double costoHora = Double.parseDouble(vista.getTxtCostoHora().getText());
-                double horasTrabajadas = Double.parseDouble(vista.getTxtHorasTrabajadas().getText());
-                PorHoras nuevo = new PorHoras(costoHora, horasTrabajadas, nombre, dpi);
-                listaEmpleados.add(nuevo);
-            }
-            case "Comisionista" -> {
-                double ventasTotales = Double.parseDouble(vista.getTxtVentasTotales().getText());
-                double porcentajeComision = Double.parseDouble(vista.getTxtPorcentajeComision().getText());
-                Comisionista nuevo = new Comisionista(ventasTotales, porcentajeComision, nombre, dpi);
-                listaEmpleados.add(nuevo);
-            }
+
+            vista.getTxtNombre().clear();
+            vista.getTxtDpi().clear();
+            vista.getTxtSueldoFijo().clear();
+            vista.getTxtCostoHora().clear();
+            vista.getTxtHorasTrabajadas().clear();
+            vista.getTxtVentasTotales().clear();
+            vista.getTxtPorcentajeComision().clear();
+        } catch (NumberFormatException ex) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de los datos");
+            alerta.setHeaderText("Datos inválidos");
+            alerta.setContentText("Verifica que todos los campos numéricos tengan valores válidos.");
+            alerta.showAndWait();
         }
-
-        vista.getTxtNombre().clear();
-        vista.getTxtDpi().clear();
-        vista.getTxtSueldoFijo().clear();
-        vista.getTxtCostoHora().clear();
-        vista.getTxtHorasTrabajadas().clear();
-        vista.getTxtVentasTotales().clear();
-        vista.getTxtPorcentajeComision().clear();
     }
 
     private void panelVisible() {

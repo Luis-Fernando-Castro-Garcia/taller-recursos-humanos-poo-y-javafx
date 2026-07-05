@@ -155,9 +155,11 @@ public class VistaPrincipalView {
 
         tablaEmpleado = new TableView<>();
         tablaEmpleado.getColumns().addAll(colNombre, colDpi, colSueldo);
+        tablaEmpleado.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         btnCalcularTotal = new Button("Calcular Total");
         lblTotal = new Label("Total: Q0.00");
+        lblTotal.setId("lblTotal");
 
         VBox contenedor = new VBox(10, tablaEmpleado, btnCalcularTotal, lblTotal);
         contenedor.setPadding(new Insets(15));

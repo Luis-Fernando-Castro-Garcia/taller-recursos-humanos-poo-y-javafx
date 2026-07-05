@@ -28,7 +28,8 @@ public class SceneManagerController {
     }
 
     public void iniciar() {
-        Scene scene = new Scene(vista.getTabPane(), 600, 400);
+        Scene scene = new Scene(vista.getTabPane(), 750, 550);
+        scene.getStylesheets().add(getClass().getResource("/com/luiscastro/styles/estilos.css").toExternalForm());
         stage.setTitle("Sistema de Recursos Humanos");
         stage.setScene(scene);
         stage.show();
@@ -56,7 +57,7 @@ public class SceneManagerController {
         try {
             String nombre = vista.getTxtNombre().getText();
             int dpi = Integer.parseInt(vista.getTxtDpi().getText());
-            
+
             if (nombre.isBlank()) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de los datos");
